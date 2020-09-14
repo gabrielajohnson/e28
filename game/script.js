@@ -32,22 +32,22 @@ function getResult(choice){
   	// If both choices match, then it's a tie
 	if(choice == computerChoice){
 		// Print to the screen the match choices and the outcome
-    	result.innerHTML = "It's a tie!";
-    	versus.innerHTML = choice + " vs " + computerChoice;
+    		result.innerHTML = "It's a tie!";
+    		versus.innerHTML = choice + " vs " + computerChoice;
     	// This statement holds all of the winning pairings
 	}else if( (choice == "Rock" && computerChoice == "Scissors") || (choice == "Paper" && computerChoice == "Rock") || (choice == "Scissors" && computerChoice == "Paper")){
-    	// The user won, so the score increased
-    	userScoreCount++;   
-    	userScore.querySelector("span").innerHTML = userScoreCount;
-    	result.innerHTML = "You won!";
-    	versus.innerHTML = choice + " vs " + computerChoice;
-    	//	If our match pairing doesn't match any of the above conditions, then the user lost
+    		// The user won, so the score increased
+    		userScoreCount++;   
+    		userScore.querySelector("span").innerHTML = userScoreCount;
+    		result.innerHTML = "You won!";
+    		versus.innerHTML = choice + " vs " + computerChoice;
+    	//  If our match pairing doesn't match any of the above conditions, then the user lost
 	}else{
 		// The computer won, so their score increased
-    	computerScoreCount++;
+    		computerScoreCount++;
   		computerScore.querySelector("span").innerHTML = computerScoreCount;
   		result.innerHTML = "You lose!";
-    	versus.innerHTML = choice + " vs " + computerChoice;
+    		versus.innerHTML = choice + " vs " + computerChoice;
   	}
    
 }
