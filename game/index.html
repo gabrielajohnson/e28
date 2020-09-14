@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Rock, Paper, Scissors</title>
+    <script src='script.js' defer></script>
+ 	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class = "scores">
+		<div id = "user-score">User Score <span>0</span></div>
+		<div id = "computer-score">Computer Score <span>0</span></div>
+	</div>
+
+	<h1>Rock, Paper, Scissors</h1>
+
+	<form>
+		<fieldset>
+	    	<input id = "rock" type = "radio" value="Rock" name="choice"> 
+			<label for="rock">Rock</label><br>
+			<input id = "paper" type = "radio" value="Paper" name="choice"> 
+			<label for="paper">Paper</label><br>
+			<input id = "scissors" type = "radio" value="Scissors" name="choice"> 
+			<label for="scissors">Scissors</label><br>
+		</fieldset>
+		<fieldset>
+			<input type="submit" value="SHOOT" id="shoot">
+		</fieldset>
+	</form>
+
+	<div id = "versus"></div>
+	<div id = "result"></div>
+
+</body>
+
+</html>
