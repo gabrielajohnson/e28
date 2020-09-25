@@ -3,18 +3,105 @@
 <head>
     <title>Project 1</title>
     <meta charset='utf-8'>
-    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' defer></script>
+    <script src='https://unpkg.com/vue@next' defer></script>
 	<script src='script.js' defer></script>
 
 </head>
 <style>
-	/*[v-cloak]{
-		display:none;
-	}*/
+html,body{
+  margin:0;
+  padding:0;
+  font-family:arial;
+  background: #7CB9E8;
+}
+
+h1{
+  text-align:center;
+}
+
+img{
+  width: 100px;
+  height: auto;
+}
+
+.scores{
+  background: #0066b2;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+}
+
+fieldset{
+  display:flex;
+  justify-content: space-between;
+  border: 0;
+}
+
+form input[type="submit"]{
+  margin: auto;
+  background: #0066b2;
+  border-radius: 5px;
+  border:0;
+  padding: 10px;
+  width: 70px;
+  cursor: pointer;
+  color: white;
+}
+
+#versus{
+  margin: auto;
+  text-align:center;
+  padding: 20px;
+  font-size: 30px;
+  display: none;
+  background: #A4DDED;
+}
+
+
+#result{
+  background: white;
+  text-align:center;
+  width: 200px;
+  padding:20px;
+  border-radius: 20px;
+  margin: auto;
+  display: none;
+  margin-top: 20px;
+  font-size: 40px;
+}
 </style>
 <body>
-	<div id = "app" v-cloak>
+	<div id = "app">
 		<h1>Project 1</h1>
-	</div>
+
+		<div class = "scores">
+		  <div id = "user-score">User Score <span>0</span></div>
+		  <div id = "computer-score">Computer Score <span>0</span></div>
+		</div>
+
+		<h1>Rock, Paper, Scissors</h1>
+
+		<form>
+		  <fieldset>
+		  <input id = "rock" type = "radio" value="Rock" name="choice"> 
+		  <label for="rock">Rock</label><br>
+		    <input id = "paper" type = "radio" value="Paper" name="choice"> 
+		  <label for="paper">Paper</label><br>
+		    <input id = "scissors" type = "radio" value="Scissors" name="choice"> 
+		  <label for="scissors">Scissors</label><br>
+		</fieldset>
+		 <fieldset>
+		  <!--<input type="submit" value="SHOOT" id="shoot">-->
+		  </fieldset>
+		</form>
+		     <button id="shoot" v-on:click="play">Shoot</button>
+
+		<div id = "versus"></div>
+		<div id = "result"></div>
+  
+</div>
+
 </body>
 </html>
+
+
