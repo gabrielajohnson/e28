@@ -5,6 +5,10 @@ html,body{
   background: #7CB9E8;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 h1{
   text-align:center;
 }
