@@ -1,107 +1,69 @@
 <!doctype html>
 <html lang='en'>
-<head>
-    <title>Project 1</title>
-    <meta charset='utf-8'>
-    <script src='https://unpkg.com/vue@next' defer></script>
-	<script src='script.js' defer></script>
+  <head>
+      <title>Project 1</title>
+      <meta charset='utf-8'>
+      <script src='https://unpkg.com/vue@next' defer></script>
+      <script src='script.js' defer></script>
+      <link rel="stylesheet" type="text/css" href="style.css" >
+  </head>
 
-</head>
-<style>
-html,body{
-  margin:0;
-  padding:0;
-  font-family:arial;
-  background: #7CB9E8;
-}
+  <body>
 
-h1{
-  text-align:center;
-}
+    <script type='text/x-template' id='match-result'>
+      <div>
+        <ul>
+          <li>Round: {{ roundnumber }}</li>
+          <li>{{ results }}</li>
+          <li>{{ userthrow }} vs {{ computerthrow }}</li>
+        </ul>
+      </div>
+    </script>
 
-img{
-  width: 100px;
-  height: auto;
-}
+    <div id = "app">
+      <div class = "scores">
+        <div id = "user-score">User Score {{userScore}}</div>
+        <div id = "computer-score">Computer Score {{computerScore}}</div>
+      </div>
 
-.scores{
-  background: #0066b2;
-  color:white;
-  display:flex;
-  justify-content:space-between;
-}
+      <h1>Rock, Paper, Scissors</h1>
 
-fieldset{
-  display:flex;
-  justify-content: space-between;
-  border: 0;
-}
+      <div v-if="!levelChosen"> 
+        <form>
+          <fieldset>
+            <input id = "easy" type = "radio" value="0" name="levelChoice"> 
+              <label for="easy">Easy</label><br>
+              <input id = "difficult" type = "radio" value="1" name="levelChoice"> 
+              <label for="difficult">Difficult</label><br>
+          </fieldset>
+        </form>
+        <button id="shoot" v-on:click="start">Start Game</button>
+      </div>
 
-form input[type="submit"]{
-  margin: auto;
-  background: #0066b2;
-  border-radius: 5px;
-  border:0;
-  padding: 10px;
-  width: 70px;
-  cursor: pointer;
-  color: white;
-}
+      <div v-if="levelChosen">  
+      
+        <form>
+          <fieldset>
+            <input id = "rock" type = "radio" value="Rock" name="choice"> 
+            <label for="rock">Rock</label><br>
+            <input id = "paper" type = "radio" value="Paper" name="choice"> 
+            <label for="paper">Paper</label><br>
+            <input id = "scissors" type = "radio" value="Scissors" name="choice"> 
+            <label for="scissors">Scissors</label><br>
+          </fieldset>
+        </form>
+        <button id="shoot" v-on:click="play">Shoot</button>
+      
+        <p :class="{ won : matchEnd, lost: !matchEnd }" class = "result">{{resultsText}}</p>
 
-#versus{
-  margin: auto;
-  text-align:center;
-  padding: 20px;
-  font-size: 30px;
-  display: none;
-  background: #A4DDED;
-}
+        <div class = "rounds">
+          <match-result v-for='round in rounds' :userthrow='round.userthrow' :computerthrow='round.computerthrow' :results='round.results' :roundnumber='round.roundnumber'>
+          </match-result>
+        </div>
+      
+        <button v-on:click="reset">Reset</button>
+      </div> 
+    </div>
 
-
-#result{
-  background: white;
-  text-align:center;
-  width: 200px;
-  padding:20px;
-  border-radius: 20px;
-  margin: auto;
-  display: none;
-  margin-top: 20px;
-  font-size: 40px;
-}
-</style>
-<body>
-	<div id = "app">
-		<h1>Project 1</h1>
-
-		<div class = "scores">
-		  <div id = "user-score">User Score <span>0</span></div>
-		  <div id = "computer-score">Computer Score <span>0</span></div>
-		</div>
-
-		<h1>Rock, Paper, Scissors</h1>
-
-		<form>
-		  <fieldset>
-		  <input id = "rock" type = "radio" value="Rock" name="choice"> 
-		  <label for="rock">Rock</label><br>
-		    <input id = "paper" type = "radio" value="Paper" name="choice"> 
-		  <label for="paper">Paper</label><br>
-		    <input id = "scissors" type = "radio" value="Scissors" name="choice"> 
-		  <label for="scissors">Scissors</label><br>
-		</fieldset>
-		 <fieldset>
-		  <!--<input type="submit" value="SHOOT" id="shoot">-->
-		  </fieldset>
-		</form>
-		     <button id="shoot" v-on:click="play">Shoot</button>
-
-		<div id = "versus"></div>
-		<div id = "result"></div>
-  
-</div>
-
-</body>
+  </body>
 </html>
-
-
