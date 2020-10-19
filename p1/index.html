@@ -54,7 +54,7 @@
         </form>
         <button id="shoot" v-on:click="play">Shoot</button>
       
-        <p :class="{ won : matchEnd, lost: !matchEnd }" class = "result">{{resultsText}}</p>
+          <p :class="{ won : matchEnd, lost: !matchEnd, tie: matchEnd == 'tie' }" class = "result">{{resultsText}}</p>
 
         <div class = "rounds">
           <match-result v-for='round in rounds' :userthrow='round.userthrow' :computerthrow='round.computerthrow' :results='round.results' :roundnumber='round.roundnumber'>
