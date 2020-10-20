@@ -1,4 +1,4 @@
-/* This component will display the history of each match */
+// This component will display the history of each match
 Vue.component('match-result', {
   data() {
     return {}
@@ -47,7 +47,7 @@ const app = new Vue({
   },
   methods: {
     start(){     
-      /* Retrieve level user chose and set it*/                  
+      // Retrieve level user chose and set it                 
       this.levelChosen = true;
     },
     play(){
@@ -57,7 +57,8 @@ const app = new Vue({
         }
       },
     reset(){
-      Object.assign(this.$data, resetData()); /* Resets data by assigning original data to global data object */
+      // Resets data by assigning reset data to global data object 
+      Object.assign(this.$data, resetData()); 
     },
     getResult(choice){
       let computerChoice;
@@ -66,28 +67,39 @@ const app = new Vue({
       }else if(this.level == 1){
         computerChoice = this.difficultChoice(choice);
       }
-      if(choice == computerChoice){  /* It's a tie if choices match */
+      // It's a tie if choices match
+      if(choice == computerChoice){ 
         this.resultsText = "It's a tie!";
         this.matchEnd = "tie";
-      }else if( (choice == "Rock" && computerChoice == "Scissors") || (choice == "Paper" && computerChoice == "Rock") || (choice == "Scissors" && computerChoice == "Paper")){
+      }else if( (choice == "Rock" && computerChoice == "Scissors") || 
+        (choice == "Paper" && computerChoice == "Rock") || 
+        (choice == "Scissors" && computerChoice == "Paper")){
         this.userScoreCount++;   
         this.resultsText = "You won!";
         this.matchEnd = true;
-        if(this.choicesWereMatch){ /* Proceed if the user won and their last two choices were the same */
-          this.lastMatchLost = true; /* The lastMatchLost is true so the computer knows to switch their choice to one that will beat the user's last 2 choices, they will use this to win the next match */
+
+        // Proceed if the user won and their last two choices were the same 
+        if(this.choicesWereMatch){ 
+          // The lastMatchLost is true so the computer knows to switch their choice 
+          // to one that will beat the user's last 2 choices, 
+          // they will use this to win the next match 
+          this.lastMatchLost = true; 
         }
       }else{
         this.computerScoreCount++;
         this.resultsText = "You lose!";
         this.matchEnd = false;
-        if(this.choicesWereMatch){ /* Proceed if the user won and their last two choices were the same */
-          this.lastMatchLost = false; /* The lastMatchLost is false so the computer knows they have beaten the user, they will use this to win the next match */
+        // Proceed if the user won and their last two choices were the same
+        if(this.choicesWereMatch){
+          // The lastMatchLost is false so the computer knows they have beaten the user, 
+          // The computer will use this to win the next match 
+          this.lastMatchLost = false; 
         }
       }
+      // This current match history will be printed to the user
+      this.versusText = choice + " vs. " + computerChoice; 
 
-      this.versusText = choice + " vs. " + computerChoice; /* This current match history will be printed to the user */
-
-      /* Save match details to match history */
+      // Save match details to match history
       this.matches.push({   
         roundnumber: this.round++,
         results: this.resultsText,
@@ -99,37 +111,43 @@ const app = new Vue({
       difficultChoice(choice){
         let computerChoice;
           
-        /* Checks if the user made the same choice twice in a row*/
+        // Checks if the user made the same choice twice in a row
         if(this.lastUserChoice && (this.lastUserChoice == this.lastUserChoice2)){
 
-          /*(Scissors) If the user made the same choice twice, throw this option*/
+          // (Scissors) If the user made the same choice twice, throw this option
           if(this.lastUserChoice == 'Scissors' && this.lastMatchLost == false){
             computerChoice = 'Paper';
-          /*(Scissors) If the user made the same choice 3 times and the computer lost the match the third time, throw this option*/
+          // (Scissors) If the user made the same choice 3 times 
+          // and the computer lost the match the third time, 
+          // throw this option
           }else if(this.lastUserChoice == 'Scissors' && this.lastMatchLost == true){
             computerChoice = 'Rock';
-          /*(Paper) If the user made the same choice twice, throw this option*/
+          // (Paper) If the user made the same choice twice, throw this option*/
           }else if(this.lastUserChoice == 'Paper' && this.lastMatchLost == false){
             computerChoice = 'Rock'; 
-          /*(Paper) If the user made the same choice 3 times and the computer lost the match the third time, throw this option*/
+          //(Paper) If the user made the same choice 3 times 
+          // and the computer lost the match the third time, 
+          // throw this option
           }else if(this.lastUserChoice == 'Paper' && this.lastMatchLost == true){
             computerChoice = 'Scissors';
-          /*(Rock) If the user made the same choice twice, throw this option*/
+          // (Rock) If the user made the same choice twice, throw this option
           }else if(this.lastUserChoice == 'Rock' && this.lastMatchLost == false){
             computerChoice = 'Scissors'; 
-          /*(Rock) If the user made the same choice 3 times and the computer lost the match the third time, throw this option*/
+          // (Rock) If the user made the same choice 3 times 
+          // and the computer lost the match the third time, 
+          // throw this option
           }else if(this.lastUserChoice == 'Rock' && this.lastMatchLost == true){
             computerChoice = 'Paper';
           }
           this.choicesWereMatch = true;
           }else{
-            /* If the user didn't throw the same choice twice, computer chooses randow throw*/
+            // If the user didn't throw the same choice twice, computer chooses randow throw
             computerChoice = this.choices[Math.floor((Math.random() * 3))]; 
-            /* The choices weren't a match so we set that to false*/
+            // The choices weren't a match so we set that to false
             this.choicesWereMatch = false;
           }      
-          
-          this.lastUserChoice2 = this.lastUserChoice; /* Set the last user choice to the second to last choice*/
+          // Set the last user choice to the second to last choice
+          this.lastUserChoice2 = this.lastUserChoice; 
           this.lastUserChoice = choice; /*Set the current user choice to last choice*/
           return computerChoice;
         }

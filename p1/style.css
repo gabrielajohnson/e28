@@ -108,6 +108,7 @@ form input[type="submit"]{
   display: flex;
   flex-direction: column;
   text-align: center;
+  align-items: center;
 }
 
 #rock,#paper,#scissors{
