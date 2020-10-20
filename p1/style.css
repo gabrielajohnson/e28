@@ -2,15 +2,25 @@ html,body{
   margin:0;
   padding:0;
   font-family:arial;
-  background: #7CB9E8;
+  background: #CDF9FF;
 }
 
 [v-cloak] {
-    display: none;
+    display: none
 }
 
 h1{
   text-align:center;
+  color: #f23cc5;
+  text-shadow: 2px 2px #4fe9fd;
+}
+
+h3{
+  text-align: center;
+}
+
+h4{
+  text-align: center;
 }
 
 img{
@@ -18,17 +28,26 @@ img{
   height: auto;
 }
 
-.scores{
-  background: #0066b2;
-  color:white;
-  display:flex;
-  justify-content:space-between;
+button{
+  background: #3a3bd4;
+  color: white;
+  border: 0;
+  padding: 5px 15px;
+  border-radius: 5px;
+  display: block;
+  cursor: pointer;
+  font-size: 20px;
+  margin: 5px auto;
 }
 
 fieldset{
   display:flex;
-  justify-content: space-between;
+  justify-content: space-around;
   border: 0;
+}
+
+input{
+  margin-bottom: 10px;
 }
 
 form input[type="submit"]{
@@ -42,45 +61,38 @@ form input[type="submit"]{
   color: white;
 }
 
-#versus{
-  margin: auto;
-  text-align:center;
-  padding: 20px;
-  font-size: 30px;
-  display: none;
-  background: #A4DDED;
+.scores{
+  background: #3a3bd4;
+  color:white;
+  display:flex;
+  justify-content:space-between;
 }
 
-
-#result{
-  background: white;
-  text-align:center;
-  width: 200px;
-  padding:20px;
-  border-radius: 20px;
-  margin: auto;
-  display: none;
-  margin-top: 20px;
-  font-size: 40px;
-}
-
-.rounds{
-  height: 200px;
+.matches{
+  height: 150px;
   overflow:auto;
   background:white;
   width: 80%;
   margin: auto;
   border-radius: 10px;
+  border: 2px solid #f23cc5;
 }
 
 .result{
   color: white;
-  text-align:center;
+  text-align: center;
+  border-radius: 10px;
+  width: 50%;
+  margin: 10px auto;
+  padding: 1px;
+}
+
+.result p{
+  margin: 5px;
 }
 
 .won{
-  background: green;
-  
+  background: green; 
 }
 
 .lost{
@@ -92,13 +104,14 @@ form input[type="submit"]{
   color: black;
 }
 
-button{
-  margin: auto;
-  background: #0066b2;
-  color:white;
-  border:0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display: block;
-  cursor:pointer;
+.form-section{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
+
+#rock,#paper,#scissors{
+  position: relative;
+}
+
+

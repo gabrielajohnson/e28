@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang='en'>
   <head>
-      <title>Project 1</title>
+      <title>Project  | Rock, Paper, Scissors</title>
       <meta charset='utf-8'>
       <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' defer></script>
       <script src='script.js' defer></script>
@@ -29,35 +29,52 @@
       <h1>Rock, Paper, Scissors</h1>
 
       <div v-if="!levelChosen"> 
+        <h3>Choose your level</h3>
         <form>
           <fieldset>
-            <input id = "easy" type = "radio" value="0" name="levelChoice"> 
+            <div class = "form-section">
+              <input id = "easy" type = "radio" value="0" name="levelChoice" v-model="level"> 
               <label for="easy">Easy</label><br>
-              <input id = "difficult" type = "radio" value="1" name="levelChoice"> 
+            </div>
+            <div class = "form-section">
+              <input id = "difficult" type = "radio" value="1" name="levelChoice" v-model="level"> 
               <label for="difficult">Difficult</label><br>
+            </div>
           </fieldset>
         </form>
         <button id="shoot" v-on:click="start">Start Game</button>
       </div>
 
-      <div v-if="levelChosen">  
-      
+      <div v-if="levelChosen">     
         <form>
           <fieldset>
-            <input id = "rock" type = "radio" value="Rock" name="choice"> 
-            <label for="rock">Rock</label><br>
-            <input id = "paper" type = "radio" value="Paper" name="choice"> 
-            <label for="paper">Paper</label><br>
-            <input id = "scissors" type = "radio" value="Scissors" name="choice"> 
-            <label for="scissors">Scissors</label><br>
+            <div class = "form-section">
+              <img src = "images/rock.png" alt="rock">
+              <input id = "rock" type = "radio" value="Rock" name="choice" v-model="userChoice"> 
+              <label for="rock">Rock</label><br>
+            </div>
+            <div class = "form-section">
+              <img src = "images/paper.png" alt="paper">
+              <input id = "paper" type = "radio" value="Paper" name="choice" v-model="userChoice"> 
+              <label for="paper">Paper</label><br>
+            </div>
+            <div class = "form-section">
+              <img src = "images/scissors.png" alt="scissors">
+              <input id = "scissors" type = "radio" value="Scissors" name="choice" v-model="userChoice"> 
+              <label for="scissors">Scissors</label><br>
+            </div>
           </fieldset>
         </form>
         <button id="shoot" v-on:click="play">Shoot</button>
-      
-          <p :class="{ won : matchEnd, lost: !matchEnd, tie: matchEnd == 'tie' }" class = "result">{{resultsText}}</p>
 
-        <div class = "rounds">
-          <match-result v-for='round in rounds' :userthrow='round.userthrow' :computerthrow='round.computerthrow' :results='round.results' :roundnumber='round.roundnumber'>
+        <div :class="{ won : matchEnd, lost: matchEnd == false, tie: matchEnd == 'tie' }" class = "result">
+          <p>{{versusText}}</p>
+          <p>{{resultsText}}</p>
+        </div>
+
+        <h4>History</h4>
+        <div class = "matches">
+          <match-result v-for='match in matches' :userthrow='match.userthrow' :computerthrow='match.computerthrow' :results='match.results' :roundnumber='match.roundnumber'>
           </match-result>
         </div>
       
