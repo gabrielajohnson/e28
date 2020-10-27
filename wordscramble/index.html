@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang='en'>  
+  <head>
+      <title>Project | Word Scramble</title>
+      <meta charset='utf-8'>
+      <script src='js/master.js' defer></script>
+      <link rel="stylesheet" type="text/css" href="style.css" >
+  </head>
+
+  <body>
+
+    <div id = "app" v-cloak>
+      <h1>Word Scramble</h1>
+      <label>Enter your player name:
+      <input type="text" v-model='playerName' v-on:keyup.enter='startGame'>
+      </label>
+      <button v-on:click='startGame'>Let's Play</button>
+      
+      
+      <div v-if="startGameStatus">
+        <p>Game on, {{playerName}}!</p>
+        
+        <p>Your mystery word is: {{mysteryWord}}</p>
+        
+        <p>Hint: {{hint}}</p>
+        
+        <label>Your guess:
+      <input type="text" v-on:keyup.enter='submitGuess' v-model.trim='guess'>
+        </label>
+          <button v-on:click='submitGuess'>Submit Guess</button>
+          
+      
+      <feedback-block v-if='result' :class="{ correct : iscorrect, wrong: !iscorrect }" v-bind:iscorrect="iscorrect" v-on:play-again='playAgain()'>></feedback-block>    
+
+      </div> 
+   
+    </div>
+
+  </body>
+</html>
