@@ -3,8 +3,7 @@
         <img
             alt="ZipFoods logo"
             id="logo"
-            src="@/assets/images/zipfoods-logo.png"
-        />
+            src="@/assets/images/zipfoods-logo.png"/>
 
         <nav>
             <ul>
