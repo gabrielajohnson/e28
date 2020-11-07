@@ -1,42 +1,43 @@
 <template>
-    <div>
-        <h1>Show Product ID# {{ id }}</h1>
-        <p>{{product}}</p>
-        <!--<div class="product-name">{{ product.name }}</div>
-        <img
-            class="product-thumb"
-            :src="require('@/assets/images/products/' + product.id + '.jpg')"
-        />
-        <p class="product-description">{{ product.description }}</p>
-        <div class="product-price">${{ product.price }}</div>-->
+    <div id="product-page">
+        <div v-if="product">
+            <show-product
+                :product="product"
+                :includeDetails="true"
+            ></show-product>
+        </div>
+
+        <div v-if="productNotFound">
+            <p>Product {{ id }} not found.</p>
+
+            <router-link v-bind:to="'/products'"
+                >Go to all products
+            </router-link>
+        </div>
     </div>
 </template>
 
 <script>
-import {products} from '@/products.js'
+import ShowProduct from '@/components/ShowProduct.vue';
 
 export default {
-	name: '',
-	props: ['id'],
-    data: function () {
-        return {
-            products: products,
-        };
+    name: '',
+    props: ['id', 'products'],
+    components: {
+        'show-product': ShowProduct,
+    },
+    data() {
+        return {};
     },
     computed: {
         product() {
-        let productsArray = this.products;
-			
-			let product1 = productsArray.filter(function(productsArray) {return (productsArray['id'] == this.id);})[0];
-
-			return product1;
+            return this.products.filter((product) => {
+                return product.id == this.id;
+            }, this.id)[0];
         },
-    }
-
+        productNotFound() {
+            return this.product == null;
+        },
+    },
 };
-
-
 </script>
-
-<style>
-</style>

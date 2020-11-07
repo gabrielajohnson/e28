@@ -11,16 +11,16 @@
 </template>
 
 <script>
-import {products} from '@/products.js'
+import { products } from '@/products.js';
 
-export default{
-	name: 'show-featured',
-	props: ['category'],
-	data: function(){
-		return {
-			products: products,
-		};
-	},
+export default {
+    name: 'show-featured',
+    props: ['category'],
+    data: function () {
+        return {
+            products: products,
+        };
+    },
     computed: {
         featuredProducts() {
             return this.products.filter((product) => {
@@ -29,10 +29,4 @@ export default{
         },
     },
 };
-
-
-
 </script>
- 
-<style scoped>
-</style>

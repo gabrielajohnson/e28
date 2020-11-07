@@ -1,28 +1,32 @@
-<!-- src/components/ShowProducts.vue -->
 <template>
     <div id="products">
-        <h2>Products</h2>
-        <show-product
+        <h1>Products</h1>
+
+        <router-link
             v-for="product in products"
             :key="product.id"
-            :product="product"
-        ></show-product>
+            v-bind:to="'/products/' + product.id"
+            exact
+        >
+            <show-product :product="product"></show-product>
+        </router-link>
     </div>
 </template>
 
 <script>
 import ShowProduct from '@/components/ShowProduct.vue';
-import {products} from '@/products.js'
 
 export default {
-	name: '',
-	components: {
-		'show-product': ShowProduct,
-	},
-	data: function (){
-		return {
-			products: products,
-		};
-	}
-}
+    name: '',
+    components: {
+        'show-product': ShowProduct,
+    },
+    props: ['products'],
+    data: function () {
+        return {};
+    },
+};
 </script>
+
+<style scoped>
+</style>

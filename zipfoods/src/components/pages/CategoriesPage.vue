@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Categories</h2>
+        <h1>Categories</h1>
         <ul class="cleanList">
             <li v-for="(category, id) in categories" :key="id">
                 {{ category }}
@@ -10,18 +10,19 @@
 </template>
 
 <script>
-import { products } from '@/products.js';
 export default {
     name: '',
+    props: ['products'],
     data: function () {
-        return {
-            products: products,
-        };
+        return {};
     },
     computed: {
         categories() {
-            let categories = this.products.map((product) => product.categories);
+            let categories = this.products.map((product) =>
+                product.categories.split(',')
+            );
             let mergedCategories = [].concat.apply([], categories);
+
             // Return unique, sorted categories
             return [...new Set(mergedCategories)].sort();
         },
@@ -31,4 +32,3 @@ export default {
 
 <style scoped>
 </style>
-
