@@ -1,0 +1,9 @@
+{
+    "seeds": [
+        {
+        	"trip_id": 1,
+            "date": "10/20/20",
+            "description": "Go to the museum"
+        }
+    ]
+}

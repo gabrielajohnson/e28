@@ -1,0 +1,12 @@
+{
+    "seeds": [
+        {
+        	"trip_id": 1,
+            "name": "Packing List"
+        },
+        {
+        	"trip_id": 1,
+            "name": "Buy List"
+        }
+    ]
+}

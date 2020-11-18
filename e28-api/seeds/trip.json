@@ -1,0 +1,10 @@
+{
+    "seeds": [
+        {
+            "name": "Paris",
+            "origin": "New York",
+            "description": "Girls Trip",
+            "destination": "Paris"
+        }
+    ]
+}

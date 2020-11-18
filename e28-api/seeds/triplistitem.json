@@ -1,0 +1,24 @@
+{
+    "seeds": [
+        {
+        	"trip_id": 1,
+        	"triplist_id": 1,
+            "name": "Toothbrush"
+        },
+        {
+        	"trip_id": 1,
+        	"triplist_id": 1,
+            "name": "suntan lotion"
+        },
+        {
+            "trip_id": 1,
+            "triplist_id": 2,
+            "name": "hair band"
+        },
+        {
+            "trip_id": 1,
+            "triplist_id": 2,
+            "name": "shirt"
+        }
+    ]
+}
