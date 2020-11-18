@@ -10,6 +10,10 @@
             <show-trip :trip="trip" :triplists="triplists" :triplistitems="triplistitems" :tripdays="tripdays"></show-trip>
         </router-link>
 
+        <div v-if="trips.length == 0">
+            <p>No Trips Have Been Created</p>
+        </div>
+
     </div>
 </template>
 

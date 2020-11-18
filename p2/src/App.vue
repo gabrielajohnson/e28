@@ -14,7 +14,6 @@
             </ul>
         </nav>
         <div class="content">
-            <h3>Travel Tea</h3>
 
             <router-view
                 v-bind:trips="trips"
@@ -42,12 +41,11 @@ export default {
             triplistitems: [],
             tripdays: [],
             /* Store links in an array to maintain order */
-            links: ['home','trips', 'add a trip'],
+            links: ['trips', 'add a trip'],
 
             /* Map links to the appropriate component */
             paths: {
-                home: '/',
-                trips: '/trips',
+                trips: '/',
                 'add a trip': '/trips/new'
             },
         };

@@ -3,7 +3,7 @@
 
     <input type="text" placeholder="Date" v-model="i.date" id="date" max="100" v-on:keyup="editDay(i)"/>
     <input type="text" placeholder="Description" v-model="i.description" id="description" max="100" v-on:keyup="editDay(i)"/>
-    <button class="btn delete" v-on:click="deleteDay(i)">Delete</button>
+    <button class="small-btn delete" v-on:click="deleteDay(i)">Delete</button>
 
 </div>
 </template>

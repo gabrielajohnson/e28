@@ -5,6 +5,27 @@
         <div id="inputs">
             <label for="name">Name</label>
             <input type="text" v-model="trip.name" id="name" min="3" max="100" required/>
+
+            <label for="name">Description</label>
+            <input type="text" v-model="trip.description" id="description" max="100" />
+
+            <label for="name">Origin</label>
+            <input type="text" v-model="trip.origin" id="origin" max="100" />
+
+            <label for="name">Destination</label>
+            <input type="text" v-model="trip.destination" id="destination" max="100"/>
+
+            <label for="name">Departure Details</label>
+            <input type="text" v-model="trip.departing_travel" id="departing_travel" max="100"/>
+
+            <label for="name">Returning Travel Details</label>
+            <input type="text" v-model="trip.returning_travel" id="returning_travel" max="100"/>
+
+            <label for="name">Budget</label>
+            <input type="text" v-model="trip.budget" id="budget" max="100"/>
+
+            <label for="name">Hotel</label>
+            <input type="text" v-model="trip.hotel" id="hotel" max="100"/>
         </div>
 
         <button @click="addTrip">Add Trip</button>
@@ -30,7 +51,6 @@ export default {
             errors: null,
             showConfirmationMessage: false,
             trip: {
-                name: 'London',
             }
         };
     },
@@ -49,23 +69,7 @@ export default {
                 }
             });
         },
-    },
-    /*computed: {
-        categoriesList() {
-            let tempCategories = this.products.filter(function(product){
-                if (product.categories == "" || product.categories == null) {
-                    return false; // skip
-                }
-                return true;
-            }).map((product) =>
-                product.categories.split(',')
-            );
-            let mergedCategories = [].concat.apply([], tempCategories);
-
-            // Return unique, sorted categories
-            return [...new Set(mergedCategories)].sort();
-        },
-    },*/
+    }
 };
 </script>
 

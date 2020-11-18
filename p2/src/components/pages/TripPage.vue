@@ -13,10 +13,6 @@
 
         <div v-if="tripNotFound">
             <p>trip {{ id }} not found.</p>
-
-            <router-link v-bind:to="'/trips'"
-                >Go to all trips
-            </router-link>
         </div>
     </div>
 </template>

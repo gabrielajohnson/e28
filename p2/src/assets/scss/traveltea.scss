@@ -138,13 +138,11 @@ label.form-checkbox-label {
 
 button {
     background-color: green;
-    font-size: 10px;
     margin-top: 10px;
     border-radius: 5px;
     border: 0;
     color: white;
     cursor: pointer;
-    height: 15px;
 }
 
 button:hover {
@@ -162,8 +160,29 @@ input[type=radio] {
     bottom: 2px;
 }
 
+.small-btn{
+    font-size: 10px;
+    padding: 5px 10px;
+}
 
+.add-new-item{
+    display:flex;
+    width: 170px;
+}
 
+.btn{
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.btn.add-list{
+    width: 100px;
+    margin: auto 10px;
+}
+
+.add-list-container{
+    display:flex;
+}
 
 
 /*----------------------------------------------------
@@ -206,13 +225,32 @@ TRIP
     flex-wrap: wrap;
 }
 
+a{
+    text-decoration:none;
+    color: black;
+}
+
 h3.travel-tea{
     text-align: left;
+}
+
+h3{
+    background: var(--lightgreen);
+}
+
+.trip{
+    background: var(--green);
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    text-decoration: none;
+    margin: 10px 0px;
 }
 
 .trip-day{
     border: 1px solid black;
     width:200px;
+    background: white;
 }
 
 .trip-heading p{
@@ -233,11 +271,15 @@ h3.travel-tea{
 .trip-list ul{
     list-style-type: none;
     padding: 0px;
+    height: 100px;
+    overflow-y: auto;
 
 }
 
 .trip-list ul li{
     background: var(--lightgreen);
     display: flex;
+    align-items: baseline;
+    justify-content:space-between;
 }
 

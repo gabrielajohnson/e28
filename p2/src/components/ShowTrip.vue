@@ -1,6 +1,6 @@
 <template>
-    <div class="trip">
-        <div class="trip-name">{{ trip.name }}</div>
+    <div>
+        <h3 class="text-align-center trip-name">{{ trip.name }}</h3>
 
         <div v-if="includeDetails">
             <label for="name">Description</label>
@@ -12,10 +12,10 @@
             <label for="name">Destination</label>
             <input type="text" v-model="trip.destination" id="destination" max="100" v-on:keyup="editTrip"/>
 
-            <label for="name">Desparting Travel</label>
+            <label for="name">Departure Details</label>
             <input type="text" v-model="trip.departing_travel" id="departing_travel" max="100" v-on:keyup="editTrip"/>
 
-            <label for="name">Returning Travel</label>
+            <label for="name">Returning Travel Details</label>
             <input type="text" v-model="trip.returning_travel" id="returning_travel" max="100" v-on:keyup="editTrip"/>
 
             <label for="name">Budget</label>
@@ -24,13 +24,14 @@
             <label for="name">Hotel</label>
             <input type="text" v-model="trip.hotel" id="hotel" max="100" v-on:keyup="editTrip"/>
 
+            <h3 class = "text-align-center">Trip Schedule</h3>
             <div class="calendar">
                 <div class = "trip-day" v-for="(i, index) in currentTripDays" :value="index" :key="index">
                     <trip-day :trip="trip" :i="i" v-on:update-trip-days="updateTripDays()"></trip-day>
                 </div>
             </div>
 
-            <button @click="addDay">Add Day</button>
+            <button class="btn" @click="addDay">Add Date</button>
 
             <p v-if="errors">
                 <b>Please correct the following error(s):</b>
@@ -43,6 +44,7 @@
             v-on:update-trip-lists="updateTripLists()"
             v-on:update-trip-list-items="updateTripListItems()"></show-trip-list>
 
+            <button class="btn" v-on:click="deleteTrip(trip.id)">Delete Trip</button>
 
         </div>
     </div>
@@ -91,6 +93,56 @@ export default {
                 }
 
             });
+        },
+        deleteTrip(tripId) {
+
+            axios.delete('/trip/'+ tripId).then((response) => {
+                if (response.data.errors) {
+                    this.errors = response.data.errors;
+                }
+
+            });
+
+            for(let day in this.tripdays){
+                if( day.trip_id == tripId){
+                    axios.delete('/tripdays/'+ day.id).then((response) => {
+                        if (response.data.errors) {
+                            this.errors = response.data.errors;
+                        }
+
+                    });
+                }
+            }
+
+            for(let list in this.triplists){
+                if( list.trip_id == tripId){
+                    axios.delete('/triplists/'+ list.id).then((response) => {
+                        if (response.data.errors) {
+                            this.errors = response.data.errors;
+                        }
+
+                    });
+                }
+            }
+
+            for(let listItem in this.triplists){
+                if( listItem.trip_id == tripId){
+                    axios.delete('/triplistitems/'+ listItem.id).then((response) => {
+                        if (response.data.errors) {
+                            this.errors = response.data.errors;
+                        } 
+
+                    });
+                }
+            }
+
+            this.$emit('update-trip');
+            this.$emit('update-trip-days');
+            this.$emit('update-trip-lists');
+            this.$emit('update-trip-list-items');
+            /*this.$router.push("trips");*/
+            this.$router.push({path: 'home'});
+
         },
         updateTrips() {
             this.$emit('update-trips');

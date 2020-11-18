@@ -1,26 +1,28 @@
 <template>
-    <div class="trip">
-        <div class="trip-name">Lists</div>
-        <div>
-            <input type="text" v-model="triplist.name" id="name" max="100"/>
-            <button class="btn" v-on:click="addList">Add List</button>
+    <div>
+        <h3 class="text-align-center">Lists</h3>
+        <div class="add-list-container">
+            <input type="text" v-model="triplist.name" id="name" max="100" placeholder = "Enter new list name"/>
+            <button class="btn add-list" v-on:click="addList">Add List</button>
         </div>
 
          <div class = "trip-lists"> 
           <div class = "trip-list" v-for="(list,index) in currentTripListItems" :key="index">
             <div class="trip-heading">
                 <p>{{ list.name }}</p>
-                <button class="btn" v-on:click="deleteList(list.id)">Delete List</button>
+                <button class="small-btn" v-on:click="deleteList(list.id)">Delete List</button>
             </div>
             <ul>
                 <li v-for="(listitem,itemindex) in currentTripListItems[index].items" :key="itemindex">
                     <p>{{listitem.name}}</p>
-                    <button class="btn" v-on:click="deleteListItem(listitem.id)">X</button>
+                    <button class="small-btn" v-on:click="deleteListItem(listitem.id)">X</button>
                 </li>
 
             </ul>
-            <div><input type="text" max="100" :id="nameId(list.id)" :key="list.id"/>
-            <button class="btn" v-on:click="addListItem(list.id)">+</button></div>
+            <div class = "add-new-item">
+                <input type="text" max="100" :id="nameId(list.id)" :key="list.id" placeholder="Add a new list item"/>
+                <button class="small-btn" v-on:click="addListItem(list.id)">+</button>
+                </div>
           </div>
         </div>
 
@@ -56,6 +58,8 @@ export default {
                 }
 
             });
+
+            this.triplist.name = '';
         },
         deleteList(listId) {
 
