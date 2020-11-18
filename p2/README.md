@@ -17,17 +17,13 @@
 
 - addTrip: POSTs new trip
 - editTrip: PUTs updates existing trip information
-
 - addDay: POSTs adds new day to server
 - editDay: PUTs updates day information (date and/or description)
 - deleteDay: DELETEs day from server
-
 - addList: POSTs adds new list
 - deleteList: DELETEs list from server
-
 - addListItem: POSTs add list item to current list
 - deleteListItem: DELETEs list item from list
-
 - updateTrips: GETs trips from server
 - updateTripLists: GETs trip lists from server
 - updateTripListItems: GETs trip list items from server
