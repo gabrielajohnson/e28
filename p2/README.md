@@ -5,7 +5,7 @@
 ## Pages summary
 - Trips: <http://e28p2.gabrielajohnson.me/>
 - Add a Trip: <http://e28p2.gabrielajohnson.me/trips/new>
-- Trip Page: <http://e28p2.michaelkchen.me/trips/1>
+- Trip Page: <http://e28p2.gabrielajohnson.me/trips/1>
 
 ## SFC summary
 
