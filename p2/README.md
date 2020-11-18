@@ -17,7 +17,6 @@
 
 - addTrip: POSTs new trip
 - editTrip: PUTs updates existing trip information
-- deleteTrip: DELETEs trip from server and other related information
 
 - addDay: POSTs adds new day to server
 - editDay: PUTs updates day information (date and/or description)

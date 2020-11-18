@@ -44,7 +44,6 @@
             v-on:update-trip-lists="updateTripLists()"
             v-on:update-trip-list-items="updateTripListItems()"></show-trip-list>
 
-            <button class="btn" v-on:click="deleteTrip(trip.id)">Delete Trip</button>
 
         </div>
     </div>
@@ -57,7 +56,7 @@ import ShowTripList from '@/components/ShowTripList.vue';
 
 export default {
     name: 'show-trip',
-    props: ['trip','includeDetails','tripdays','triplists','triplistitems'],
+    props: ['trip','trips','includeDetails','tripdays','triplists','triplistitems'],
     data() {
         return{
             errors: null,
@@ -93,56 +92,6 @@ export default {
                 }
 
             });
-        },
-        deleteTrip(tripId) {
-
-            axios.delete('/trip/'+ tripId).then((response) => {
-                if (response.data.errors) {
-                    this.errors = response.data.errors;
-                }
-
-            });
-
-            for(let day in this.tripdays){
-                if( day.trip_id == tripId){
-                    axios.delete('/tripdays/'+ day.id).then((response) => {
-                        if (response.data.errors) {
-                            this.errors = response.data.errors;
-                        }
-
-                    });
-                }
-            }
-
-            for(let list in this.triplists){
-                if( list.trip_id == tripId){
-                    axios.delete('/triplists/'+ list.id).then((response) => {
-                        if (response.data.errors) {
-                            this.errors = response.data.errors;
-                        }
-
-                    });
-                }
-            }
-
-            for(let listItem in this.triplists){
-                if( listItem.trip_id == tripId){
-                    axios.delete('/triplistitems/'+ listItem.id).then((response) => {
-                        if (response.data.errors) {
-                            this.errors = response.data.errors;
-                        } 
-
-                    });
-                }
-            }
-
-            this.$emit('update-trip');
-            this.$emit('update-trip-days');
-            this.$emit('update-trip-lists');
-            this.$emit('update-trip-list-items');
-            /*this.$router.push("trips");*/
-            this.$router.push({path: 'home'});
-
         },
         updateTrips() {
             this.$emit('update-trips');

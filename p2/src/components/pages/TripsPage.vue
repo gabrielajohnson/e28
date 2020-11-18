@@ -7,7 +7,7 @@
             :key="trip.id"
             v-bind:to="'/trips/' + trip.id"
             exact>
-            <show-trip :trip="trip" :triplists="triplists" :triplistitems="triplistitems" :tripdays="tripdays"></show-trip>
+            <show-trip :trip="trip" :trips="trips" :triplists="triplists" :triplistitems="triplistitems" :tripdays="tripdays"></show-trip>
         </router-link>
 
         <div v-if="trips.length == 0">
