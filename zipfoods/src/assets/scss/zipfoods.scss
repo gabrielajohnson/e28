@@ -261,6 +261,10 @@ PAGE SPECIFIC
 /*----------------------------------------------------
 MISC
 -----------------------------------------------------*/
+[v-cloak] {
+    display: none
+}
+
 .cleanList {
     list-style-type: none;
     padding: 0;
@@ -281,9 +285,7 @@ MISC
 }
 
 .fade-enter,
-.fade-leave-to
-
-/* .fade-leave-active below version 2.1.8 */
-    {
+.fade-leave-to {
+    /* .fade-leave-active below version 2.1.8 */
     opacity: 0;
 }

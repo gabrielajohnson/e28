@@ -2,24 +2,78 @@
     <div>
         <h2>Add a Product</h2>
 
+        <small class="form-help">* Required field</small>
+
         <div id="inputs">
-            <label for="name">Name</label>
-            <input type="text" v-model="product.name" id="name" />
+            <label for="name">* Name</label>
+            <input
+                type="text"
+                data-test="product-name-input"
+                v-model="product.name"
+                id="name"
+            />
+            <small class="form-help">Min: 3, Max: 100</small>
+            <error-field
+                v-if="errors && 'name' in errors"
+                :errors="errors.name"
+            ></error-field>
 
-            <label for="sku">SKU:</label>
-            <input type="text" v-model="product.sku" id="sku" />
+            <label for="sku">* SKU:</label>
+            <input
+                type="text"
+                data-test="product-sku-input"
+                v-model="product.sku"
+                id="sku"
+            />
+            <small class="form-help"
+                >Min: 3, Max: 100. Letters and dashes only.</small
+            >
+            <error-field
+                v-if="errors && 'sku' in errors"
+                :errors="errors.sku"
+            ></error-field>
 
-            <label for="price">Price:</label>
-            <input type="text" v-model="product.price" id="price" />
+            <label for="price">* Price:</label>
+            <input
+                type="text"
+                data-test="product-price-input"
+                v-model="product.price"
+                id="price"
+            />
+            <small class="form-help">Enter a decimal value number</small>
+            <error-field
+                v-if="errors && 'price' in errors"
+                :errors="errors.price"
+            ></error-field>
 
-            <label for="available">Quantity available:</label>
-            <input type="text" v-model="product.available" id="available" />
+            <label for="available">* Quantity available:</label>
+            <input
+                type="text"
+                data-test="product-available-input"
+                v-model="product.available"
+                id="available"
+            />
+            <small class="form-help">Enter a whole number</small>
+            <error-field
+                v-if="errors && 'available' in errors"
+                :errors="errors.available"
+            ></error-field>
 
-            <label for="weight">Weight (in lbs):</label>
-            <input type="text" v-model="product.weight" id="weight" />
+            <label for="weight">* Weight (in lbs):</label>
+            <input
+                type="text"
+                data-test="product-weight-input"
+                v-model="product.weight"
+                id="weight"
+            />
+            <error-field
+                v-if="errors && 'weight' in errors"
+                :errors="errors.weight"
+            ></error-field>
 
             <label for="perishable" class="form-checkbox-label">
                 <input
+                    data-test="product-perishable-checkbox"
                     type="checkbox"
                     v-model="product.perishable"
                     id="perishable"
@@ -27,20 +81,47 @@
                 Perishable?
             </label>
 
-            <label for="description">Description</label>
-            <textarea v-model="product.description" id="description"></textarea>
+            <label for="description">* Description</label>
+            <textarea
+                data-test="product-description-textarea"
+                v-model="product.description"
+                id="description"
+            ></textarea>
+            <small class="form-help">Min:100 </small>
+            <error-field
+                v-if="errors && 'description' in errors"
+                :errors="errors.description"
+            ></error-field>
         </div>
 
-        <button @click="addProduct">Add Product</button>
+        <button @click="addProduct" data-test="add-product-button">
+            Add Product
+        </button>
 
-        {{ errors }}
+        <transition name="fade">
+            <div
+                data-test="product-added-confirmation"
+                class="alert"
+                v-if="showConfirmationMessage"
+            >
+                Your product <em>{{ addedName }}</em> was added!
+            </div>
+        </transition>
+
+        <div class="form-feedback-error" v-if="errors">
+            Please correct the above errors
+        </div>
     </div>
 </template>
 
 <script>
-import { axios } from '@/app.js';
+import { axios } from '@/common/app.js';
+import ErrorField from '@/components/ErrorField.vue';
 
 export default {
+    components: {
+        'error-field': ErrorField,
+    },
     data() {
         return {
             errors: null,
@@ -63,8 +144,25 @@ export default {
                 if (response.data.errors) {
                     this.errors = response.data.errors;
                 } else {
-                    this.$emit('update-products');
+                    this.$store.dispatch('fetchProducts');
+
                     this.showConfirmationMessage = true;
+                    this.addedName = this.product.name;
+
+                    setTimeout(
+                        () => (this.showConfirmationMessage = false),
+                        3000
+                    );
+
+                    this.product = {
+                        name: '',
+                        slug: '',
+                        price: '',
+                        available: '',
+                        weight: '',
+                        perishable: false,
+                        description: '',
+                    };
                 }
             });
         },
