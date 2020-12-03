@@ -59,7 +59,7 @@ export default {
     data() {
         return {
             // Form is prefilled for demonstration purposes; remove in final application
-            // jill@harvard.edu/asdfasdf is one of our seed users from e28-api/seeds/user.json
+            // jill@harvard.edu/asdfasdf is one of our seed users from e28-api-2/seeds/user.json
             data: {
                 email: 'jill@harvard.edu',
                 password: 'asdfasdf',
