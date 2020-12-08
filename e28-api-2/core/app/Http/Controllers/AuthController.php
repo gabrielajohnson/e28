@@ -4,22 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Validator;
-use Auth;
+use Session;
 
 class AuthController extends Controller
 {
     /**
-     *
+     * POST /auth
+     * When the client is first mounted, it pings this route to check its authentication status
      */
     public function auth(Request $request)
     {
         $response = [
-            'loggedIn' => $request->user() ? true : false,
-            'user' => $request->user()
+            'success' => true,
+            'authenticated' => $request->user() ? true : false,
+            'user' => $request->user(),
         ];
-        
+
         return response($response, 200);
     }
 
@@ -35,7 +38,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response([
-            'message' => ['Login failed'],
+            'success' => false,
             'errors' => $validator->errors()->all()
             ], 200);
         }
@@ -46,23 +49,14 @@ class AuthController extends Controller
         ]);
 
         if ($authed) {
-            $user = User::where('email', $request->email)->first();
-
-            // Delete any existing tokens this user may have
-            $user->tokens()->delete();
-
-            // Create them a new token
-            $token = $user->createToken(config('app.name'))->plainTextToken;
-
             $response = [
                 'success' => true,
-                'user' => $user,
-                'token' => $token
+                'authenticated' => true,
+                'user' => User::where('email', $request->email)->first(),
             ];
         } else {
             $response = [
                 'success' => false,
-                'message' => 'Login failed',
                 'errors' => ['These credentials do not match our records'],
                 'test' => 'login-failed-bad-credentials'
             ];
@@ -72,7 +66,7 @@ class AuthController extends Controller
     }
 
     /**
-     *
+     * POST /register
      */
     public function register(Request $request)
     {
@@ -96,29 +90,26 @@ class AuthController extends Controller
             'password' => \Hash::make($request->password)
         ]);
        
-        $token = $user->createToken(config('app.name'))->plainTextToken;
+        Auth::login($user);
 
         $response = [
             'success' => true,
             'user' => $user,
-            'token' => $token
         ];
 
-        return response($response, 201); # 201 created
+        return response($response, 200);
     }
 
     /**
-     * GET /api/logout
+     * POST /logout
      */
     public function logout(Request $request)
     {
-        if ($request->user()) {
-            $request->user()->tokens()->delete();
-            $response = ['success' => true, 'message' => 'Logout succesful'];
-        } else {
-            $response = ['success' => false, 'message' => 'User not logged in'];
-        }
+        Session::flush();
 
-        return response($response, 200); # 200
+        return response([
+            'success' => true,
+            'authenticated' => false,
+        ], 200);
     }
 }
