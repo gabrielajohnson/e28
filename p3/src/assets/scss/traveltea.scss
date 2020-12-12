@@ -1,0 +1,285 @@
+/*Variables*/
+:root {
+  --green: #b4eeaf;
+  --lightgreen: #c6f4c2;
+}
+
+
+/* box sizing: http://www.paulirish.com/2012/box-sizing-border-box-ftw */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /* http://snook.ca/archives/html_and_css/font-size-with-rem */
+    color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    /* Have the scroll bars always on so there's not a shift in the layout
+    when going from a non-scrolling page to a scrolling-page */
+    overflow-y: scroll;
+    height: 100%;
+}
+
+body {
+    /* Default font-size */
+    font-size: 1.6rem;
+    margin: 0;
+    /* sticky footer - match footer height */
+    /*margin-bottom: 60px;*/
+    height: 100%;
+}
+
+#app {
+    /*max-width: 800px;*/
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    height: 100%;
+    display: flex;
+}
+
+header {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+nav {
+    width: 70px;
+    background: #b4eeaf;
+    position: fixed;
+    height: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        word-wrap: anywhere;
+
+        a{
+            display: inline-block;
+            text-transform: capitalize;
+            text-decoration: none;
+            padding: 5px;
+            margin: 5px;
+            cursor: pointer;
+            color: black;
+        }
+
+        a:hover {
+            background-color: green;
+            color: white;
+            text-decoration: none;
+        }
+
+        a.router-link-active:link,
+        a.router-link-active:visited,
+        a.router-link-active:hover,
+        a.router-link-active:active {
+            text-decoration: none;
+            color: black;
+            background-color: white;
+            cursor: inherit;
+        }
+    }
+}
+
+.content{
+    margin-left: 70px;
+    flex: 1;
+    padding: 0px 20px;
+}
+
+
+/*----------------------------------------------------
+Forms
+-----------------------------------------------------*/
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin: 20px 0 5px 0;
+    font-weight: bold;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
+    font-size: 1.6rem;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid silver;
+
+    &.form-input-error {
+        border: 1px solid red;
+    }
+}
+
+label.form-checkbox-label {
+    text-transform: none;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+
+button {
+    background-color: green;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darken(blue, 10%);
+}
+
+input[type=checkbox],
+input[type=radio] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+}
+
+input[type=radio] {
+    bottom: 2px;
+}
+
+.small-btn{
+    font-size: 10px;
+    padding: 5px 10px;
+}
+
+.add-new-item{
+    display:flex;
+    width: 170px;
+}
+
+.btn{
+    padding: 10px 20px;
+    font-size: 15px;
+}
+
+.btn.add-list{
+    width: 100px;
+    margin: auto 10px;
+}
+
+.add-list-container{
+    display:flex;
+}
+
+
+/*----------------------------------------------------
+MISC
+-----------------------------------------------------*/
+.cleanList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.alert {
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 5px;
+    margin: 5px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
+}
+
+
+/*------------------------------------------------------
+TRIP
+--------------------------------------------------------*/
+
+.calendar{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+a{
+    text-decoration:none;
+    color: black;
+}
+
+h3.travel-tea{
+    text-align: left;
+}
+
+h3{
+    background: var(--lightgreen);
+}
+
+.trip{
+    background: var(--green);
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    text-decoration: none;
+    margin: 10px 0px;
+}
+
+.trip-day{
+    border: 1px solid black;
+    width:200px;
+    background: white;
+}
+
+.trip-heading p{
+    margin: 0;
+}
+
+.trip-lists{
+    display:flex;
+}
+
+.trip-list{
+    width: 200px;
+    background: var(--green);
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.trip-list ul{
+    list-style-type: none;
+    padding: 0px;
+    height: 100px;
+    overflow-y: auto;
+
+}
+
+.trip-list ul li{
+    background: var(--lightgreen);
+    display: flex;
+    align-items: baseline;
+    justify-content:space-between;
+}
+
