@@ -4,7 +4,8 @@
             "name": "Paris",
             "origin": "New York",
             "description": "Girls Trip",
-            "destination": "Paris"
+            "destination": "Paris",
+            "user_id": 1
         }
     ]
 }

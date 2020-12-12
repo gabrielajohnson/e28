@@ -92,6 +92,13 @@
         "hotel": {
             "type": "string",
             "validators": []
+        },
+        "user_id": {
+            "type": "integer",
+            "validators": [
+                "required",
+                "numeric"
+            ]
         }
     },
     "review": {
