@@ -1,28 +1,33 @@
 <template>
-    <div>
-        <h3 class="text-align-center trip-name">{{ trip.name }}</h3>
-
+    <div style="width:100%;">
+        <h3 class="text-align-center trip-name" data-test="trip-name">{{ trip.name }}</h3>
         <div v-if="includeDetails">
             <label for="name">Description</label>
-            <input type="text" v-model="trip.description" id="description" max="100" v-on:keyup="editTrip"/>
+            <input type="text" 
+            data-test="trip-description-input"
+            v-model="trip.description" id="description" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
+            <error-field v-if="errors && 'description' in errors" :errors="errors.description"></error-field>
 
             <label for="name">Origin</label>
-            <input type="text" v-model="trip.origin" id="origin" max="100" v-on:keyup="editTrip"/>
+            <input type="text" 
+            data-test="trip-origin"
+            v-model="trip.origin" id="origin" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
 
             <label for="name">Destination</label>
-            <input type="text" v-model="trip.destination" id="destination" max="100" v-on:keyup="editTrip"/>
+            <input type="text" v-model="trip.destination" id="destination" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
 
             <label for="name">Departure Details</label>
-            <input type="text" v-model="trip.departing_travel" id="departing_travel" max="100" v-on:keyup="editTrip"/>
+            <input type="text" v-model="trip.departing_travel" id="departing_travel" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
 
             <label for="name">Returning Travel Details</label>
-            <input type="text" v-model="trip.returning_travel" id="returning_travel" max="100" v-on:keyup="editTrip"/>
+            <input type="text" v-model="trip.returning_travel" id="returning_travel" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
 
             <label for="name">Budget</label>
-            <input type="text" v-model="trip.budget" id="budget" max="100" v-on:keyup="editTrip"/>
+            <input type="text" data-test="trip-budget" v-model="trip.budget" id="budget" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
+            <error-field v-if="errors && 'budget' in errors" :errors="errors.budget"></error-field>
 
             <label for="name">Hotel</label>
-            <input type="text" v-model="trip.hotel" id="hotel" max="100" v-on:keyup="editTrip"/>
+            <input type="text" v-model="trip.hotel" id="hotel" max="100" v-on:keyup="editTrip" v-on:blur="validate()"/>
 
             <h3 class = "text-align-center">Trip Schedule</h3>
             <div class="calendar">
@@ -31,19 +36,14 @@
                 </div>
             </div>
 
-            <button class="btn" @click="addDay">Add Date</button>
+            <button class="btn" @click="addDay" data-test="trip-add-day">Add Date</button>
 
-            <p v-if="errors">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-                </ul>
-            </p>
+            <div class="form-feedback-error" v-if="errors">Please correct the above errors</div>
 
             <show-trip-list :trip="trip" :triplists="triplists" :triplistitems="triplistitems" 
             v-on:update-trip-lists="updateTripLists()"
             v-on:update-trip-list-items="updateTripListItems()"></show-trip-list>
-
+            <button @click="deleteTrip(trip.id)">Delete Trip</button>
 
         </div>
     </div>
@@ -53,6 +53,8 @@
 import { axios } from '@/common/app.js';
 import TripDay from '@/components/TripDay.vue';
 import ShowTripList from '@/components/ShowTripList.vue';
+import ErrorField from '@/components/ErrorField.vue';
+import Validator from 'validatorjs';
 
 export default {
     name: 'show-trip',
@@ -60,18 +62,30 @@ export default {
     data() {
         return{
             errors: null,
+            showConfirmationMessage: false,
             tripday: {
                 date: '',
                 description: '',
                 trip_id: this.trip.id
-            },
+            }
         };
     },
     components: {
+        'error-field': ErrorField,
         'trip-day': TripDay,
         'show-trip-list': ShowTripList
     },
     methods: {
+        validate() {
+            let validator = new Validator(this.trip, {
+                name: 'required|between:1,100',
+                description: 'between:3,100',
+                budget: 'numeric'
+            });
+            this.errors = validator.errors.all();
+
+            return validator.passes();
+        },
         editTrip() {
             axios.put('/trip/' + this.trip.id, this.trip).then((response) => {
                 if (response.data.errors) {
@@ -80,6 +94,16 @@ export default {
                 } else {
                     this.$emit('update-trips');
                     this.showConfirmationMessage = true;
+                }
+            });
+        },
+        deleteTrip(id) {
+            axios.delete('/trip/' + id).then((response) => {
+                if (response.data.errors) {
+                    this.errors = response.data.errors;
+                } else {
+                    this.$store.dispatch('fetchTrips');
+                    /*this.$emit('update-trips');*/
                 }
             });
         },

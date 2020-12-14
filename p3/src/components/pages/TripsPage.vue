@@ -42,6 +42,17 @@ export default {
         }*/
     },
     methods: {
+        deleteTrip(id) {
+            axios.delete('/trip/' + id).then((response) => {
+                if (response.data.errors) {
+                    this.errors = response.data.errors;
+                } else {
+                    this.$store.dispatch('fetchTrips');
+                    this.$router.push({ path: '/' });
+                    /*this.$emit('update-trips');*/
+                }
+            });
+        },
         loadTrips() {
             if (this.user) {
                 // Because trip is a auth-protected resource, this will

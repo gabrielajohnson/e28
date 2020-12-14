@@ -7,7 +7,7 @@
                         v-for="link in links"
                         v-bind:key="link"
                         v-bind:to="paths[link]"
-                        exact
+                        exact :data-test="link + '-link'"
                         >{{ link }}</router-link
                     >
                 </li>
@@ -40,7 +40,12 @@ export default {
             triplistitems: [],
             tripdays: [],
             /* Store links in an array to maintain order */
-            links: ['trips', 'add a trip','account','register'],
+            links: [
+                'trips', 
+                'add a trip',
+                'account',
+                'register'
+            ],
 
             /* Map links to the appropriate component */
             paths: {
