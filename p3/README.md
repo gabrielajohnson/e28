@@ -1,13 +1,13 @@
 # Project 3
 + By: *Gabriela Johnson*
-+ Production URL: <http://e28p3.gabrielajohnson.me/>
++ Production URL: <https://e28p3.gabrielajohnson.me/>
 
 ## Pages summary
-- Trips: <http://e28p3.gabrielajohnson.me/>
-- Add a Trip: <http://e28p3.gabrielajohnson.me/trips/new>
-- Trip Page: <http://e28p3.gabrielajohnson.me/trips/1>
-- Login Page: <http://e28p3.gabrielajohnson.me/account>
-- Register Page: <http://e28p3.gabrielajohnson.me/register>
+- Trips: <https://e28p3.gabrielajohnson.me/>
+- Add a Trip: <https://e28p3.gabrielajohnson.me/trips/new>
+- Trip Page: <https://e28p3.gabrielajohnson.me/trips/1>
+- Login Page: <https://e28p3.gabrielajohnson.me/account>
+- Register Page: <https://e28p3.gabrielajohnson.me/register>
 
 ## SFC summary
 
