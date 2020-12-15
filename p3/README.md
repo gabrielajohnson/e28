@@ -1,6 +1,6 @@
 # Project 3
 + By: *Gabriela Johnson*
-+ Production URL: <https://e28p3.gabrielajohnson.me/>
++ Production URL: <https://e28p3.gabrielajohnson.me/account>
 
 ## Pages summary
 - Trips: <https://e28p3.gabrielajohnson.me/>
