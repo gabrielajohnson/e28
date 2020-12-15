@@ -65,9 +65,7 @@ export default {
     methods: {
         register(){
             axios.post('register', this.newUser).then((response) => {
-                if (response) {
-                    console.log(response);
-                }
+
             });
         }
     }

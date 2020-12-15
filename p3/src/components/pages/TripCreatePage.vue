@@ -90,7 +90,6 @@ export default {
             });
 
             this.errors = validator.errors.all();
-            console.log(this.errors);
             return validator.passes();
         },
         addTrip() {
