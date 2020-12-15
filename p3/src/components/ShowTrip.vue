@@ -40,6 +40,12 @@
 
             <div class="form-feedback-error" v-if="errors">Please correct the above errors</div>
 
+            <h3 class="text-align-center">Lists</h3>
+            <div class="add-list-container">
+                <input type="text" v-model="triplist.name" id="name" max="100" placeholder = "Enter new list name" data-test="trip-list-name-input" v-on:blur="validateList()"/>
+                <button class="btn add-list" v-on:click="addList" data-test="trip-add-list">Add List</button>
+            </div>
+
             <show-trip-list :trip="trip" :triplists="triplists" :triplistitems="triplistitems" 
             v-on:update-trip-lists="updateTripLists()"
             v-on:update-trip-list-items="updateTripListItems()"></show-trip-list>
@@ -67,7 +73,11 @@ export default {
                 date: '',
                 description: '',
                 trip_id: this.trip.id
-            }
+            },
+            triplist:{
+                name: '',
+                trip_id: this.trip.id
+            },
         };
     },
     components: {
@@ -86,6 +96,27 @@ export default {
 
             return validator.passes();
         },
+        validateList() {
+            let validator = new Validator(this.triplist, {
+                name: 'required|between:1,100',
+            });
+
+            this.errors = validator.errors.all();
+
+            return validator.passes();
+        },
+        addList() {
+            axios.post('/triplist', this.triplist).then((response) => {
+                if (response.data.errors) {
+                    this.errors = response.data.errors;
+                } else {
+                    this.$store.dispatch('fetchTripLists');
+                }
+
+            });
+
+            this.triplist.name = '';
+        },
         editTrip() {
             axios.put('/trip/' + this.trip.id, this.trip).then((response) => {
                 if (response.data.errors) {
@@ -103,7 +134,6 @@ export default {
                     this.errors = response.data.errors;
                 } else {
                     this.$store.dispatch('fetchTrips');
-                    /*this.$emit('update-trips');*/
                 }
             });
         },
@@ -116,9 +146,6 @@ export default {
                 }
 
             });
-        },
-        updateTrips() {
-            this.$emit('update-trips');
         },
         updateTripDays() {
             this.$emit('update-trip-days');
@@ -135,6 +162,7 @@ export default {
         },
     },
     computed: {
+        /* Get days for current trip */
         currentTripDays() {
             function filterById(day) {
                 return day.trip_id == this.trip.id;

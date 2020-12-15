@@ -26,7 +26,6 @@ export default {
     components: {
         'show-trip': ShowTrip,
     },
-    /*props: ['trips','triplists','triplistitems','tripdays'],*/
     props:['triplists','triplistitems','tripdays'],
     data: function () {
         return {
@@ -36,10 +35,7 @@ export default {
     computed: {
         user() {
             return this.$store.state.user;
-        }/*,
-        trips() {
-            return this.$store.state.trips;
-        }*/
+        }
     },
     methods: {
         deleteTrip(id) {
@@ -49,14 +45,13 @@ export default {
                 } else {
                     this.$store.dispatch('fetchTrips');
                     this.$router.push({ path: '/' });
-                    /*this.$emit('update-trips');*/
                 }
             });
         },
         loadTrips() {
             if (this.user) {
-                // Because trip is a auth-protected resource, this will
-                // only return trips belonging to the authenticated user
+                // trip is a auth-protected resource
+                // only return trips belonging to the user
 
                 axios.get('trip').then((response) => {
                     this.trips = response.data.trip;

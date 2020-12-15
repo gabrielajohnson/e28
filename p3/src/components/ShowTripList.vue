@@ -1,11 +1,5 @@
 <template>
     <div>
-        <h3 class="text-align-center">Lists</h3>
-        <div class="add-list-container">
-            <input type="text" v-model="triplist.name" id="name" max="100" placeholder = "Enter new list name" data-test="trip-list-name-input" v-on:blur="validateList()"/>
-            <button class="btn add-list" v-on:click="addList" data-test="trip-add-list">Add List</button>
-        </div>
-
          <div class = "trip-lists"> 
           <div class = "trip-list" v-for="(list,index) in currentTripListItems" :key="index">
             <div class="trip-heading">
@@ -75,25 +69,13 @@ export default {
 
             return validator.passes();
         },
-        addList() {
-            axios.post('/triplist', this.triplist).then((response) => {
-                if (response.data.errors) {
-                    this.errors = response.data.errors;
-                } else {
-                    this.$emit('update-trip-lists');
-                }
-
-            });
-
-            this.triplist.name = '';
-        },
         deleteList(listId) {
 
             axios.delete('/triplist/'+ listId).then((response) => {
                 if (response.data.errors) {
                     this.errors = response.data.errors;
                 } else {
-                    this.$emit('update-trip-lists');
+                    this.$store.dispatch('fetchTripLists');
                 }
 
             });
@@ -104,7 +86,7 @@ export default {
                 }
             }
 
-            this.$emit('update-trip-list-items');
+            this.$store.dispatch('fetchTripListItems');
 
         },
         addListItem(listId) {
@@ -116,7 +98,7 @@ export default {
                 if (response.data.errors) {
                     this.errors = response.data.errors;
                 } else {
-                    this.$emit('update-trip-list-items');
+                    this.$store.dispatch('fetchTripListItems');
                     document.getElementById(nameId).value = '';
                 }
 
@@ -128,7 +110,7 @@ export default {
                 if (response.data.errors) {
                     this.errors = response.data.errors;
                 } else {
-                    this.$emit('update-trip-list-items');
+                    this.$store.dispatch('fetchTripListItems');
                 }
 
             });
@@ -140,19 +122,21 @@ export default {
     },
     computed: {
         currentTripListItems() {
+            /* Get the list items for each list in the trip*/
             function FilterList(listing) {
                 return listing.trip_id == this.trip.id;
             }
-
             let filteredList = this.triplists.filter(FilterList, this);
             let objectList = [];
 
+            /* Filter the list items by list here*/
             function FilterListItem(listing) {
                 return listing.trip_id == this.trip.id;
             }
         
             let filteredItems = this.triplistitems.filter(FilterListItem, this);
 
+            / * separate found list items in objectlist here*/
             for(const x in filteredList){
                 objectList.push({name: filteredList[x].name, id: filteredList[x].id, trip_id: filteredList[x].trip_id, items: []});
                 for(const y in filteredItems){
@@ -161,6 +145,7 @@ export default {
                     }
                 }
             }
+
             return objectList;
 
 

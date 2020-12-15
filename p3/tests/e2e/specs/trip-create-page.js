@@ -13,12 +13,9 @@ describe('Trip Create Page', () => {
     }
 
     it('adds a new trip', () => {
-
-        // First we have to login, because only auth'd users can add products
-        // Login is a custom command defined in /tests/e2e/support/commands.js
-        // Ref: https://docs.cypress.io/api/cypress-api/custom-commands.html
         cy.login();
 
+        // Enter fields for new trip
         cy.get('[data-test="add a trip-link"]').click();
         cy.get('[data-test=trip-name-input]').clear().type(trip.name);
         cy.get('[data-test=trip-description-input]').clear().type(trip.description);
@@ -29,22 +26,10 @@ describe('Trip Create Page', () => {
         cy.get('[data-test=trip-budget-input]').clear().type(trip.budget);
         cy.get('[data-test=trip-hotel-input]').clear().type(trip.hotel);
         cy.get('[data-test=add-trip-button]').click();
-        cy.get('[data-test="trip-added-confirmation"]').should('exist');
 
-        // Go to the products page and confirm our new product is visible there
-        cy.get('[data-test="trips-link"]').click();
-        cy.contains(trip.name);
+        // Go to the trips page and confirm our new trip is visible there
+        cy.visit('/');
+        cy.get('#trips > a:last-child > div').click();
     });
 
-    /*it('shows error messages if new product data is invalid', () => {
-
-        cy.login();
-
-        cy.get('[data-test="add a product-link"]').click();
-
-        // Try a SKU we know is taken
-        cy.get('[data-test=product-sku-input]').clear().type('driscolls-strawberries');
-        cy.get('[data-test=add-product-button]').click();
-        cy.contains("The sku has already been taken.");
-    });*/
 })

@@ -20,6 +20,7 @@ describe('Account Page', () => {
         cy.get('[data-test=email-input]').clear().type(user.email);
         cy.get('[data-test=password-input]').clear().type(user.password);
         cy.get('[data-test=login-button]').click();
+        cy.wait(1000);
         cy.contains('[data-test="welcome-message"]', "Hi, " + user.name + "!");
 
         cy.get('[data-test=logout-button]').click();

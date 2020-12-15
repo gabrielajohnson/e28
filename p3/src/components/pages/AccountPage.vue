@@ -3,25 +3,11 @@
         <div v-if="user">
             <h2 data-test="welcome-message">Hi, {{ user.name }}!</h2>
 
-           <!--<div id="trips">
-                <strong>Your Trips</strong>
-                <p v-if="trips && trips.length == 0">
-                    No favorites yet.
-                </p>
-                <li v-for="(trip, key) in trips" v-bind:key="key">
-                    {{ trip.name }}
-                </li>
-            </div>-->
-
             <button @click="logout" data-test="logout-button">Logout</button>
         </div>
 
         <div v-else id="loginForm">
             <h2>Login</h2>
-            <small
-                >(Form is prefilled for demonstration purposes; remove in final
-                application)</small
-            >
             <div>
                 <label
                     >Email:
@@ -60,8 +46,8 @@ export default {
             // Form is prefilled for demonstration purposes; remove in final application
             // jill@harvard.edu/asdfasdf is one of our seed users from e28-api/seeds/user.json
             data: {
-                email: 'jill@harvard.edu',
-                password: 'asdfasdf',
+                email: '',
+                password: '',
             },
             errors: null,
         };
@@ -76,24 +62,10 @@ export default {
         },
     },
     methods: {
-        /*loadTrips() {
-            if (this.user) {
-                // Because trip is a auth-protected resource, this will
-                // only return trips belonging to the authenticated user
-                axios.get('trip').then((response) => {
-                    this.trips = response.data.trip.map((trip) => {
-                        return this.$store.getters.getTripById(
-                            trip.user_id
-                        );
-                    });
-                });
-            }
-        },*/
         login() {
             axios.post('login', this.data).then((response) => {
                 if (response.data.authenticated) {
                     this.$store.commit('setUser', response.data.user);
-                    /*this.$router.push({ path: '/' });*/
                 } else {
                     this.errors = response.data.errors;
                 }
@@ -106,14 +78,6 @@ export default {
                 }
             });
         },
-    }/*,
-    watch: {
-        user() {
-            this.loadTrips();
-        },
-    },*/
-    /*mounted() {
-        this.loadTrips();
-    },*/
+    }
 };
 </script>

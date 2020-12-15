@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import store from '@/common/store.js'
+/*import BootstrapVue from 'bootstrap-vue'*/
+/*import 'bootstrap/dist/css/bootstrap.css'*/
+/*import 'bootstrap-vue/dist/bootstrap-vue.css'*/
 
 import TripsPage from '@/components/pages/TripsPage.vue';
 import TripCreatePage from '@/components/pages/TripCreatePage.vue';
@@ -13,6 +16,7 @@ import RegisterPage from '@/components/pages/RegisterPage.vue';
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
+/*Vue.use(BootstrapVue);*/
 
 const router = new VueRouter({
     mode: 'history',

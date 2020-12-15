@@ -2,9 +2,11 @@
 <div>
 
     <input type="text" placeholder="Date" v-model="i.date" id="date" max="100" v-on:keyup="editDay(i)" data-test="trip-day-date"/>
+    
     <error-field v-if="errors && 'date' in errors" :errors="errors.date"></error-field>
 
     <input type="text" placeholder="Description" v-model="i.description" id="description" max="100"  v-on:keyup="editDay(i)" data-test="trip-day-description"/>
+
     <error-field v-if="errors && 'description' in errors" :errors="errors.description"></error-field>
 
     <button class="small-btn delete" v-on:click="deleteDay(i)">Delete</button>

@@ -10,7 +10,6 @@
                 v-on:update-trip-days="updateTripDays()"
             ></show-trip>
         </div>
-
         <div v-if="tripNotFound">
             <p>trip {{ id }} not found.</p>
         </div>
@@ -22,7 +21,6 @@ import ShowTrip from '@/components/ShowTrip.vue';
 
 export default {
     name: '',
-    /*props: ['id', 'trips','triplists','triplistitems','tripdays'],*/
     props: ['id','triplists','triplistitems','tripdays'],
     components: {
         'show-trip': ShowTrip,
@@ -37,9 +35,6 @@ export default {
     },
     computed: {
         trip() {
-            /*return this.trips.filter((trip) => {
-                return trip.id == this.id;
-            }, this.id)[0];*/
             return this.$store.getters.getTripById(this.id);
         },
         trips() {

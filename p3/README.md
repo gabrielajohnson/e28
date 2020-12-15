@@ -31,7 +31,6 @@
 - addListItem: POSTs add list item to current list
 - deleteListItem: DELETEs list item from list
 
-- updateTrips: GETs trips from server
 - updateTripLists: GETs trip lists from server
 - updateTripListItems: GETs trip list items from server
 - updateTripDays: GETs trip days from server

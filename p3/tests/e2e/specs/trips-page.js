@@ -8,32 +8,24 @@ describe('Trips Page', () => {
 
     it('shows all the trips', () => {
 
-        cy.visit('/')
-        cy.contains('h1', 'Trips')
+        cy.login();
+        cy.visit('/');
+        cy.contains('h1', 'Trips');
 
-        // Confirm we see at least 10 products (that's how many product seeds we have)
-        cy.get('[data-test="trip-name"]').its('length').should('be.gte', 1)
+        cy.contains('[data-test="trip-name"]:first-child', trip.name);
 
-        // Confirm we see a our test product
-        cy.contains('[data-test="trip-name"]', trip.name)
-
-        // Confirm we can click on a product and get to its individual page
+        // We can click on trip and get trip page
         cy.get('[data-test="trip-name"]').contains(trip.name).click();
 
-        // Confirm the test product page loads
-        cy.contains('[data-test="trip-name"]', trip.name)
-        cy.url().should('include', trip.id)
+        // Confirm the trip page loads
+        cy.contains('[data-test="trip-name"]', trip.name);
+        cy.url().should('include', trip.id);
+
+        // Logout of account
+        cy.visit('/account');
+        cy.get('[data-test=logout-button]').click();
 
     })
 
-/*
-    it('shows the correct product images', () => {
 
-        cy.visit('/products')
-
-        cy.get('[data-test=product-image-' + product.id + ']')
-            .should('have.attr', 'src')
-            .should('include', product.id)
-    })
-
-})*/
+})

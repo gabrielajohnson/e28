@@ -36,8 +36,6 @@ export default {
     name: 'App',
     data() {
         return {
-            triplists: [],
-            triplistitems: [],
             tripdays: [],
             /* Store links in an array to maintain order */
             links: [
@@ -57,16 +55,6 @@ export default {
         };
     },
     methods: {
-        updateTripLists() {
-            axios.get('triplist').then((response) => {
-                this.triplists = response.data.triplist;
-            });
-        },
-        updateTripListItems() {
-            axios.get('triplistitem').then((response) => {
-                this.triplistitems = response.data.triplistitem;
-            });
-        },
         updateTripDays() {
             axios.get('tripday').then((response) => {
                 this.tripdays = response.data.tripday;
@@ -75,14 +63,19 @@ export default {
     },
     mounted() {
         this.$store.dispatch('fetchTrips');
-        /*this.$store.dispatch('authUser');*/
-        this.updateTripLists();
-        this.updateTripListItems();
+        this.$store.dispatch('fetchTripLists');
+        this.$store.dispatch('fetchTripListItems');
         this.updateTripDays();
     },
     computed: {
         trips() {
             return this.$store.state.trips;
+        },
+        triplists() {
+            return this.$store.state.triplists;
+        },
+        triplistitems() {
+            return this.$store.state.triplistitems;
         }
     }
 };

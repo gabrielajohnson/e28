@@ -59,14 +59,6 @@
             </div>
         </transition>
 
-        <!--<p v-if="showConfirmationMessage">Trip was added</p>-->
-
-        <!--<p v-if="errors">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-        </ul>
-      </p>-->
         <div class="form-feedback-error" v-if="errors">Please correct the above errors</div>
     </div>
 </template>
@@ -98,24 +90,21 @@ export default {
             });
 
             this.errors = validator.errors.all();
-
+            console.log(this.errors);
             return validator.passes();
         },
         addTrip() {
             axios.post('/trip', this.trip).then((response) => {
                 if (response.data.errors) {
                     this.errors = response.data.errors;
-                        /*this.showConfirmationMessage = false;*/
                 } else {
                     this.$store.dispatch('fetchTrips');
-                    /*this.$router.push({ path: '/' });*/
                     this.showConfirmationMessage = true;
 
                     setTimeout(
                         () => (this.showConfirmationMessage = false),
                             3000
                     );
-                    /*this.$emit('update-trips');*/
                     for (var key in this.trip) {
                         this.trip[key] = '';
                     }
